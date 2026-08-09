@@ -4,7 +4,7 @@
   "description": "An absolute beginner's programming assistant that explains highlighted code snippets in plain, jargon-free English directly inside your editor.",
   "publisher": "Ruvaaaaaa",
   "icon": "icon.png",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "repository": {
     "type": "git",
     "url": "https://github.com/Ruvaaa/code-learner-extension.git"
@@ -17,7 +17,28 @@
     "vscode": "^1.125.0"
   },
   "categories": [
+    "Education",
+    "Machine Learning",
+    "Visualization",
+    "Programming Languages",
     "Other"
+  ],
+  "keywords": [
+    "ai",
+    "code explanation",
+    "explain code",
+    "flowchart",
+    "beginner",
+    "conceptual model",
+    "mermaid",
+    "tutor",
+    "learning",
+    "diagram",
+    "python",
+    "javascript",
+    "typescript",
+    "code assistant",
+    "visualizer"
   ],
   "activationEvents": [
     "onView:codeLearner.conceptualModelView",
