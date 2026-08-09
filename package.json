@@ -5,26 +5,64 @@
   "publisher": "Ruvaaaaaa",
   "icon": "icon.png",
   "version": "0.0.1",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Ruvaaa/code-learner-extension.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Ruvaaa/code-learner-extension/issues"
+  },
+  "homepage": "https://github.com/Ruvaaa/code-learner-extension#readme",
   "engines": {
     "vscode": "^1.125.0"
   },
   "categories": [
     "Other"
   ],
-  "activationEvents": [],
+  "activationEvents": [
+    "onView:codeLearner.conceptualModelView",
+    "onCommand:code-learner.generateConceptualModel"
+  ],
   "main": "./dist/extension.js",
   "contributes": {
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "code-learner-container",
+          "title": "Code Learner",
+          "icon": "$(symbol-structure)"
+        }
+      ]
+    },
+    "views": {
+      "code-learner-container": [
+        {
+          "type": "webview",
+          "id": "codeLearner.conceptualModelView",
+          "name": "Let's Learn Code Together!"
+        }
+      ]
+    },
     "commands": [
       {
         "command": "code-learner.explainCode",
-        "title": "Code Learner: Explain This Code"
+        "title": "Code Learner: Explain Selected Code"
+      },
+      {
+        "command": "code-learner.generateConceptualModel",
+        "title": "Code Learner: Generate File Conceptual Model"
       }
     ],
     "menus": {
       "editor/context": [
         {
           "command": "code-learner.explainCode",
-          "when": "editorHasSelection"
+          "when": "editorHasSelection",
+          "group": "navigation@1"
+        },
+        {
+          "command": "code-learner.generateConceptualModel",
+          "group": "navigation@2"
         }
       ]
     },
@@ -54,7 +92,8 @@
     "test": "vscode-test"
   },
   "dependencies": {
-    "@huggingface/transformers": "^4.2.0"
+    "@huggingface/transformers": "^4.2.0",
+    "marked": "^18.0.9"
   },
   "devDependencies": {
     "@types/mocha": "^10.0.10",

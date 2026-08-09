@@ -1,57 +1,79 @@
-# Code Learner 
+# Code Learner
 
 **Code Learner** is an absolute beginner’s programming assistant designed to bridge the gap between complex code syntax and plain, intuitive understanding. 
 
-Instead of searching through dense documentation or copy-pasting code into web browsers, **Code Learner** translates highlighted code snippets into plain, jargon-free English directly inside VS Code. Powered by an embedded, lightweight local AI model, it runs 100% offline with **zero configuration, zero API keys, and zero cloud dependencies**.
+Instead of toggling between web browsers or copying and pasting code across windows, **Code Learner** translates highlighted code snippets into plain English and generates visual conceptual flowcharts directly inside a dedicated VS Code sidebar.
 
 ---
 
 ## See It In Action
 
-### 1. Select Your Code
-Highlight any line or block of code you want to understand, right-click, and select **Code Learner: Explain This Code**.
+### 1. Code Explanation Mode
+Highlight any code snippet, right-click, and select **Code Learner: Explain Selected Code** to view a full context-aware breakdown in the sidebar.
 
-![Step 1: Selecting Code in Editor](./assets/preview-step1.png)
-
----
-
-### 2. Embedded AI Initialization
-Code Learner automatically opens a dedicated side-by-side window and initializes its local model. On the first run, it seamlessly prepares the lightweight inference engine locally.
-
-![Step 2: Webview Panel Loading & Initialization](./assets/preview-step2.png)
+| 1. Select Code & Right-Click | 2. Read Plain-English Explanation |
+| :---: | :---: |
+| ![Selecting code snippet](./explain1.png) | ![Explanation in sidebar](./explain2.png) |
 
 ---
 
-### 3. Clear, Step-by-Step Explanation
-Get a clean, beginner-friendly explanation broken down with analogies and plain English—rendered right beside your code.
+### 2. Conceptual Model & Flowchart Mode
+Open any file in your editor to automatically scan its structure and render a vertical flowchart with high-level logic summaries.
 
-![Step 3: Side-by-Side Explanation Window](./assets/preview-step3.png)
+| 1. Active Editor Focus | 2. Visual Conceptual Flowchart |
+| :---: | :---: |
+| ![Active editor file](./conceptual1.png) | ![Generated flowchart in sidebar](./conceptual2.png) |
 
 ---
 
 ## Features
 
-* **Zero Configuration:** No API keys, server setups, or terminal commands required. Works straight out of the box.
-* **100% Private & Offline:** Runs entirely on your local device using an embedded Small Language Model (SLM). Your code never leaves your computer.
-* **Dedicated Side Panel:** Opens side-by-side with your code using VS Code's native Webview UI—no intrusive popups or modal blocking.
-* **Beginner-Focused Explanations:** Cuts out dense computer science jargon and breaks down logic with clear analogies.
-* **Theme Aware:** Automatically matches your VS Code theme (Dark or Light) natively.
+* **Unified Activity Bar Sidebar:** Runs seamlessly in VS Code's sidebar—no extra editor tabs or modal popups blocking your workspace.
+* **Full-File Context Awareness:** Explains highlighted snippets accurately by analyzing local variables, custom classes, and imported module references across your file.
+* **Auto-Scanning Conceptual Flowcharts:** Automatically generates vertical, high-contrast visual flowcharts summarizing inputs, logic processing, and outputs when switching active files.
+* **Beginner-Focused & Jargon-Free:** Cuts out complex jargon and breaks down logic with clear mental models and real-world analogies.
+* **Clean & Modern UI:** Dark-mode optimized, theme-aware, and stripped of clutter for an intuitive learning workflow.
 
 ---
 
 ## How to Use
 
-1. Open any source code file in VS Code.
-2. Highlight a function, loop, condition, or snippet.
-3. **Right-click** the selection and click **Code Learner: Explain This Code** (or run `Code Learner: Explain This Code` from the Command Palette `Ctrl+Shift+P`).
-4. Read your plain-English breakdown in the side window!
+### Explaining a Specific Code Snippet
+1. Open any source file and highlight a snippet or function.
+2. **Right-click** and select **Code Learner: Explain Selected Code** (or press `Ctrl+Shift+P` / `Cmd+Shift+P` and search `Code Learner: Explain Selected Code`).
+
+![Right-clicking highlighted code](./explain1.png)
+
+3. View the detailed line-by-line mechanics, core concepts, and mental models inside the sidebar.
+
+![Code explanation output in sidebar](./explain2.png)
+
+---
+
+### Generating a Conceptual Model & Flowchart
+1. Open any source code file in your editor.
+
+![Active editor file ready for scanning](./conceptual1.png)
+
+2. Open the **Code Learner** tab from the Activity Bar.
+3. Code Learner automatically scans the file and renders a visual flowchart along with an operational summary.
+
+![Automatic flowchart generation](./conceptual2.png)
+
+---
+
+## Extension Settings
+
+This extension includes the following settings:
+
+* `codeLearner.apiKey`: (Optional) Your API key for Groq (`gsk_...`) or Hugging Face (`hf_...`) inference proxy integration.
 
 ---
 
 ## Requirements
 
-* VS Code `v1.85.0` or higher.
-* ~350MB of free disk space for the initial local AI model weights cache.
+* VS Code `v1.125.0` or higher.
+* Active internet connection for lightweight proxy inference.
 
 ---
 
