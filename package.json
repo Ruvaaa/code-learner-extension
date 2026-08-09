@@ -27,6 +27,16 @@
           "when": "editorHasSelection"
         }
       ]
+    },
+    "configuration": {
+      "title": "Code Learner",
+      "properties": {
+        "codeLearner.apiKey": {
+          "type": "string",
+          "default": "",
+          "description": "Your API key for Groq (gsk_...) or Hugging Face (hf_...)."
+        }
+      }
     }
   },
   "scripts": {
