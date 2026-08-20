@@ -4,7 +4,7 @@
   "description": "An absolute beginner's programming assistant that explains highlighted code snippets in plain, jargon-free English directly inside your editor.",
   "publisher": "Ruvaaaaaa",
   "icon": "icon.png",
-  "version": "0.0.2",
+  "version": "0.1.0",
   "repository": {
     "type": "git",
     "url": "https://github.com/Ruvaaa/code-learner-extension.git"
@@ -35,6 +35,8 @@
     "learning",
     "diagram",
     "python",
+    "jupyter",
+    "ipynb",
     "javascript",
     "typescript",
     "code assistant",
@@ -42,7 +44,12 @@
   ],
   "activationEvents": [
     "onView:codeLearner.conceptualModelView",
-    "onCommand:code-learner.generateConceptualModel"
+    "onCommand:code-learner.explainCode",
+    "onCommand:code-learner.generateConceptualModel",
+    "onCommand:code-learner.addQuickComment",
+    "onCommand:code-learner.getExamplesAndProjects",
+    "onLanguage:python",
+    "onLanguage:jupyter"
   ],
   "main": "./dist/extension.js",
   "contributes": {
@@ -67,11 +74,37 @@
     "commands": [
       {
         "command": "code-learner.explainCode",
-        "title": "Code Learner: Explain Selected Code"
+        "title": "Code Learner: Explain Selected Code",
+        "icon": "$(comment-discussion)"
       },
       {
         "command": "code-learner.generateConceptualModel",
-        "title": "Code Learner: Generate File Conceptual Model"
+        "title": "Code Learner: Generate File Conceptual Model",
+        "icon": "$(git-commit)"
+      },
+      {
+        "command": "code-learner.addQuickComment",
+        "title": "Code Learner: Add Quick Inline Note",
+        "icon": "$(note)"
+      },
+      {
+        "command": "code-learner.getExamplesAndProjects",
+        "title": "Code Learner: Show Examples & Mini-Projects",
+        "icon": "$(lightbulb)"
+      }
+    ],
+    "keybindings": [
+      {
+        "command": "code-learner.explainCode",
+        "key": "ctrl+shift+e",
+        "mac": "cmd+shift+e",
+        "when": "editorTextFocus && editorHasSelection"
+      },
+      {
+        "command": "code-learner.addQuickComment",
+        "key": "ctrl+shift+c",
+        "mac": "cmd+shift+c",
+        "when": "editorTextFocus"
       }
     ],
     "menus": {
@@ -82,8 +115,17 @@
           "group": "navigation@1"
         },
         {
-          "command": "code-learner.generateConceptualModel",
+          "command": "code-learner.addQuickComment",
+          "when": "editorTextFocus",
           "group": "navigation@2"
+        },
+        {
+          "command": "code-learner.generateConceptualModel",
+          "group": "navigation@3"
+        },
+        {
+          "command": "code-learner.getExamplesAndProjects",
+          "group": "navigation@4"
         }
       ]
     },
