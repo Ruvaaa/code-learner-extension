@@ -1,10 +1,10 @@
 {
   "name": "code-learner",
   "displayName": "Code Learner",
-  "description": "An absolute beginner's programming assistant that explains highlighted code snippets in plain, jargon-free English directly inside your editor.",
+  "description": "An absolute beginner's programming assistant that explains highlighted code snippets and errors in plain, jargon-free English directly inside your editor.",
   "publisher": "Ruvaaaaaa",
   "icon": "icon.png",
-  "version": "0.1.0",
+  "version": "0.1.3",
   "repository": {
     "type": "git",
     "url": "https://github.com/Ruvaaa/code-learner-extension.git"
@@ -27,6 +27,7 @@
     "ai",
     "code explanation",
     "explain code",
+    "explain error",
     "flowchart",
     "beginner",
     "conceptual model",
@@ -43,11 +44,12 @@
     "visualizer"
   ],
   "activationEvents": [
-    "onView:codeLearner.conceptualModelView",
+    "onView:codeLearner.mainSidebarView",
     "onCommand:code-learner.explainCode",
     "onCommand:code-learner.generateConceptualModel",
     "onCommand:code-learner.addQuickComment",
     "onCommand:code-learner.getExamplesAndProjects",
+    "onCommand:code-learner.explainError",
     "onLanguage:python",
     "onLanguage:jupyter"
   ],
@@ -58,7 +60,7 @@
         {
           "id": "code-learner-container",
           "title": "Code Learner",
-          "icon": "$(symbol-structure)"
+          "icon": "icon.svg"
         }
       ]
     },
@@ -66,7 +68,7 @@
       "code-learner-container": [
         {
           "type": "webview",
-          "id": "codeLearner.conceptualModelView",
+          "id": "codeLearner.mainSidebarView",
           "name": "Let's Learn Code Together!"
         }
       ]
@@ -76,6 +78,11 @@
         "command": "code-learner.explainCode",
         "title": "Code Learner: Explain Selected Code",
         "icon": "$(comment-discussion)"
+      },
+      {
+        "command": "code-learner.explainError",
+        "title": "Code Learner: Explain Diagnostic Error",
+        "icon": "$(warning)"
       },
       {
         "command": "code-learner.generateConceptualModel",
@@ -101,6 +108,12 @@
         "when": "editorTextFocus && editorHasSelection"
       },
       {
+        "command": "code-learner.explainError",
+        "key": "ctrl+shift+x",
+        "mac": "cmd+shift+x",
+        "when": "editorTextFocus"
+      },
+      {
         "command": "code-learner.addQuickComment",
         "key": "ctrl+shift+c",
         "mac": "cmd+shift+c",
@@ -115,17 +128,22 @@
           "group": "navigation@1"
         },
         {
-          "command": "code-learner.addQuickComment",
+          "command": "code-learner.explainError",
           "when": "editorTextFocus",
           "group": "navigation@2"
         },
         {
-          "command": "code-learner.generateConceptualModel",
+          "command": "code-learner.addQuickComment",
+          "when": "editorTextFocus",
           "group": "navigation@3"
         },
         {
-          "command": "code-learner.getExamplesAndProjects",
+          "command": "code-learner.generateConceptualModel",
           "group": "navigation@4"
+        },
+        {
+          "command": "code-learner.getExamplesAndProjects",
+          "group": "navigation@5"
         }
       ]
     },

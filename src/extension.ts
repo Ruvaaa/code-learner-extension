@@ -3,10 +3,16 @@ import * as vscode from 'vscode';
 export function activate(context: vscode.ExtensionContext) {
     const provider = new CodeLearnerViewProvider(context.extensionUri);
 
+    // Register provider using the updated view ID matching package.json
     context.subscriptions.push(
         vscode.window.registerWebviewViewProvider(
             CodeLearnerViewProvider.viewType,
-            provider
+            provider,
+            {
+                webviewOptions: {
+                    retainContextWhenHidden: true
+                }
+            }
         )
     );
 
@@ -92,6 +98,51 @@ export function activate(context: vscode.ExtensionContext) {
         }
     );
 
+    // 5. Explain Error (Diagnostic Command)
+    const explainErrorCommand = vscode.commands.registerCommand(
+        'code-learner.explainError',
+        async () => {
+            const editor = vscode.window.activeTextEditor;
+            if (!editor) {
+                vscode.window.showInformationMessage('Open a code file to analyze errors!');
+                return;
+            }
+
+            const document = editor.document;
+            const position = editor.selection.active;
+            const diagnostics = vscode.languages.getDiagnostics(document.uri);
+
+            // Filter for errors at current cursor position or active selection
+            let activeErrors = diagnostics.filter(d => 
+                d.severity === vscode.DiagnosticSeverity.Error && 
+                d.range.contains(position)
+            );
+
+            // Fallback: If no error is directly under cursor, pick the first error in the file
+            if (activeErrors.length === 0) {
+                activeErrors = diagnostics.filter(d => d.severity === vscode.DiagnosticSeverity.Error);
+            }
+
+            if (activeErrors.length === 0) {
+                vscode.window.showInformationMessage('No active errors detected in this file.');
+                return;
+            }
+
+            const targetDiagnostic = activeErrors[0];
+            const errorMessage = targetDiagnostic.message;
+            const errorLine = targetDiagnostic.range.start.line;
+
+            // Extract surrounding context (10 lines above & below the error)
+            const startLine = Math.max(0, errorLine - 10);
+            const endLine = Math.min(document.lineCount - 1, errorLine + 10);
+            const codeContext = document.getText(
+                new vscode.Range(startLine, 0, endLine, document.lineAt(endLine).text.length)
+            );
+
+            await provider.handleExplainError(errorMessage, codeContext, document.languageId);
+        }
+    );
+
     // Notebook Execution Failure Listener
     const notebooksApi = (vscode as Record<string, any>).notebooks;
     if (notebooksApi && typeof notebooksApi.onDidChangeNotebookCellExecutionState === 'function') {
@@ -125,12 +176,14 @@ export function activate(context: vscode.ExtensionContext) {
         explainCodeCommand,
         generateModelCommand,
         addQuickCommentCommand,
-        getExamplesCommand
+        getExamplesCommand,
+        explainErrorCommand
     );
 }
 
 export class CodeLearnerViewProvider implements vscode.WebviewViewProvider {
-    public static readonly viewType = 'codeLearner.conceptualModelView';
+    // UPDATED: Points to the updated view ID in package.json to guarantee dedicated Activity Bar placement
+    public static readonly viewType = 'codeLearner.mainSidebarView';
     private _view?: vscode.WebviewView;
 
     constructor(private readonly _extensionUri: vscode.Uri) {}
@@ -162,7 +215,6 @@ export class CodeLearnerViewProvider implements vscode.WebviewViewProvider {
     }
 
     public async handleGenerateConceptualModel(code: string, languageId: string) {
-        // Removed the 'code' parameter here so the whole file doesn't render as a snippet
         this.showLoading('Generating visual conceptual model...'); 
         const response = await this.queryAiProxy({
             mode: 'conceptual_model',
@@ -170,7 +222,6 @@ export class CodeLearnerViewProvider implements vscode.WebviewViewProvider {
             code,
             languageId
         });
-        // Removed the 'code' parameter here as well
         await this.renderMarkdownResponse(response); 
     }
 
@@ -196,6 +247,18 @@ export class CodeLearnerViewProvider implements vscode.WebviewViewProvider {
         this.showLoading('Finding related examples & mini-projects...', codeContext);
         const response = await this.queryAiProxy({
             mode: 'examples_and_projects',
+            snippet: codeContext,
+            code: codeContext,
+            languageId
+        });
+        await this.renderMarkdownResponse(response, codeContext);
+    }
+
+    public async handleExplainError(errorMessage: string, codeContext: string, languageId: string) {
+        this.showLoading('Analyzing error diagnostics...', codeContext);
+        const response = await this.queryAiProxy({
+            mode: 'explain_error',
+            error: errorMessage,
             snippet: codeContext,
             code: codeContext,
             languageId
