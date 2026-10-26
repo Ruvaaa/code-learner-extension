@@ -40,7 +40,7 @@ Programming errors can be intimidating when you're just starting out. Code Learn
 
 |                     Identify an Error                    |                    Understand the Error                    |
 | :------------------------------------------------------: | :--------------------------------------------------------: |
-| ![Code with a diagnostic error](./diagnostic-rror-1.png) | ![Diagnostic error explanation](./diagnositic-error-2.png) |
+| ![Code with a diagnostic error](./diagnostic-error-1.png) | ![Diagnostic error explanation](./diagnostic-error-2.png) |
 
 ### 5. Examples & Mini-Projects
 
