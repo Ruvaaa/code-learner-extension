@@ -32,7 +32,7 @@ Generate explanatory comments for selected code to make its purpose and behaviou
 
 |             Generate an Inline Note            |              Understand Your Code             |
 | :--------------------------------------------: | :-------------------------------------------: |
-| ![Inline note generation](./inline-note-1.jpg) | ![Generated inline note](./inline-note-2.jpg) |
+| ![Inline note generation](./inline-note-1.png) | ![Generated inline note](./inline-note-2.png) |
 
 ### 4. Error Explanations
 
@@ -40,7 +40,7 @@ Programming errors can be intimidating when you're just starting out. Code Learn
 
 |                     Identify an Error                    |                    Understand the Error                    |
 | :------------------------------------------------------: | :--------------------------------------------------------: |
-| ![Code with a diagnostic error](./diagnostic-rror-1.jpg) | ![Diagnostic error explanation](./diagnositic-error-2.jpg) |
+| ![Code with a diagnostic error](./diagnostic-rror-1.png) | ![Diagnostic error explanation](./diagnositic-error-2.png) |
 
 ### 5. Examples & Mini-Projects
 
@@ -48,7 +48,7 @@ Explore potential code examples and mini-projects that connect programming conce
 
 |                 Explore Examples                |             Learn Through Practice             |
 | :---------------------------------------------: | :--------------------------------------------: |
-| ![Mini-project examples](./mini-projects-1.jpg) | ![Mini-project details](./mini-projects-2.jpg) |
+| ![Mini-project examples](./mini-projects-1.png) | ![Mini-project details](./mini-projects-2.png) |
 
 ---
 

@@ -4,7 +4,7 @@
   "description": "An absolute beginner's programming assistant that explains highlighted code snippets and errors in plain, jargon-free English directly inside your editor.",
   "publisher": "Ruvaaaaaa",
   "icon": "icon.png",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "repository": {
     "type": "git",
     "url": "https://github.com/Ruvaaa/code-learner-extension.git"
